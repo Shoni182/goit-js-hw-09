@@ -1,5 +1,4 @@
 import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const images = [
   {
@@ -96,10 +95,10 @@ galleryElem.innerHTML = galleryMarkup;
 
 let gallery = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
-  captionPosition: 'outside',
+  captionPosition: 'bottom',
   captionDelay: 250,
   overlayOpacity: 0.85,
 });
-gallery.on('closed.simplelightbox', function () {
-  alert('Дякую за перегляд картинок!');
-});
+// gallery.on('closed.simplelightbox', function () {
+//   alert('Дякую за перегляд!');
+// });
