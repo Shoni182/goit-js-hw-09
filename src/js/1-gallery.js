@@ -1,3 +1,6 @@
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
 const images = [
   {
     preview:
@@ -64,23 +67,21 @@ const images = [
   },
 ];
 
-// =====. Пошук Обєктів в DOM =============================================
+//^ =====. Пошук Обєктів в DOM =============================================
 
 const galleryElem = document.querySelector('.gallery');
 
-// =====. Створення розмітки.  =============================================
+//^ =====. Створення розмітки.  =============================================
 
-// рефакторинг - добавлена деструктуризація обєктів
 const galleryMarkup = images
   .map(({ preview, original, description }) => {
     return `
     <li class="gallery-item">
-      <a class="gallery-link" href="${original}">
+      <a  href="${original}" class="gallery-link">
        <img
-      class="gallery-image"
-      src="${preview}"
-      data-source="${original}"
-      alt="${description}"
+       src="${preview}"
+       alt="${description}"
+       class="gallery-image"
     />
   </a>
 </li>`;
@@ -89,60 +90,16 @@ const galleryMarkup = images
 
 galleryElem.innerHTML = galleryMarkup;
 
-// #region //^ old
-// function imageTemplate(image) {
-//   return `<li class="gallery-item">
-//   <a class="gallery-link" href="${image.original}">
-//     <img
-//       class="gallery-image"
-//       src="${image.preview}"
-//       data-source="${image.original}"
-//       alt="${image.description}"
-//     />
-//   </a>
-// </li>`;
-// }
+//^ =====. Ініціалізація бібліотеки  =============================================
 
-// function imagesTemplate(images) {
-//   return images.map(imageTemplate).join("");
-// }
-// const markup = imagesTemplate(images);
-// galleryElem.insertAdjacentHTML("afterbegin", markup);
-// #endregion
+//- все шо в тегу. А можна ставити любу розмітку
 
-// ============.  Делегування. ======================================
-
-galleryElem.addEventListener('click', event => {
-  event.preventDefault();
-  if (event.target.nodeName !== 'IMG') return;
-
-  const activeElem = event.target;
-  const largeImgURL = activeElem.dataset.source;
-
-  showModal(largeImgURL, activeElem);
+let gallery = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionPosition: 'outside',
+  captionDelay: 250,
+  overlayOpacity: 0.85,
 });
-
-// ============= Модальне Вікно. ================================
-
-function showModal(largeImgURL, activeElem) {
-  const instance = basicLightbox.create(
-    `
-  <div>
-    <img src="${largeImgURL}" class="modal-image" width="1112" height="640">
-    <p class="image-caption">${activeElem.alt}</p>
-  </div>
-  `,
-    {
-      onShow: instance => {
-        const modalEl = instance.element();
-        const img = modalEl.querySelector('.modal-image');
-        const imgCaption = modalEl.querySelector('.image-caption');
-
-        img.addEventListener('click', () => instance.close());
-        imgCaption.addEventListener('click', () => instance.close());
-      },
-    }
-  );
-
-  instance.show();
-}
+gallery.on('closed.simplelightbox', function () {
+  alert('Дякую за перегляд картинок!');
+});
