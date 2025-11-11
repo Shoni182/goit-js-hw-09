@@ -22,7 +22,6 @@ form.addEventListener('input', evt => {
     email: inputData.get('email').trim(),
     message: inputData.get('message').trim(),
   };
-  // localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 
   saveData(STORAGE_KEY, formData);
 });
