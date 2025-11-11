@@ -1,6 +1,0 @@
-/* Common styles */
-@import url('./reset.css');
-
-/* Sections style */
-@import url("./1-gallery.css");
-@import url("./2-form.css");

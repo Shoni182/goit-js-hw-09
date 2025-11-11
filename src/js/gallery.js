@@ -99,6 +99,3 @@ let gallery = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
   overlayOpacity: 0.85,
 });
-// gallery.on('closed.simplelightbox', function () {
-//   alert('Дякую за перегляд!');
-// });
