@@ -45,6 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const data = loadData(STORAGE_KEY);
   emailElem.value = data?.email || '';
   messageElem.value = data?.message || '';
+
+  if (data) {
+    formData.email = data.email;
+    formData.message = data.message;
+  }
 });
 
 //: Functions =============
